@@ -19,13 +19,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter_health_connect/flutter_health_connect.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'custom_mood_assessment.dart'; // أو أي مسار صحيح لهذا الملف
-
-
-
-
-
-
+import 'custom_mood_assessment.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,7 +29,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-
   late TabController _tabController;
   bool _isDarkMode = false;
   bool _isSyncing = false;
@@ -57,17 +50,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<double> _weeklySpO2Values = [];
   bool _isAnalyzingMentalHealth = false;
   String _mentalHealthAnalysisResult = '';
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey();
 
-
-
-
-
-
-
-  // بنية الجسم
   String height = '';
   String weight = '';
   String muscleMass = '';
@@ -78,14 +63,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   String bmr = '';
   String lbm = '';
 
-
-  // النشاط اليومي
   String totalCaloriesBurned = '';
   String steps = '';
   String distance = '';
   String exercise = '';
 
-  // النوم
   String totalSleepTime = '';
   String wakeUpTime = '';
   String remSleep = '';
@@ -95,7 +77,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   String sleepEfficiency = '';
   String sleepquality = '';
 
-  // المؤشرات الحيوية
   String heartRateMax = '';
   String heartRateMin = '';
   String heartRateAvg = '';
@@ -118,7 +99,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _requestNotificationPermission();
     _handleInitialData();
 
-
     const channel = MethodChannel('app.channel.notification');
     channel.setMethodCallHandler((call) async {
       if (call.method == 'showMoodAssessment') {
@@ -136,16 +116,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       return null;
     });
 
-
-
-    // العمليات المتوازية مع تحديد النوع
     Future.wait<void>([
       _loadProfileImage(),
       _loadThemePreference(),
       _loadInitialData(),
     ]);
-
   }
+
   Future<void> _loadInitialData() async {
     await Future.wait<void>([
       _loadHourlyHeartRateData(),
@@ -156,49 +133,49 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       _loadHealthDataFromFirestore(),
     ]);
   }
-   List<HealthConnectDataType> types = [
-     HealthConnectDataType.ActiveCaloriesBurned,
-     HealthConnectDataType.BasalBodyTemperature,
-     HealthConnectDataType.BasalMetabolicRate,
-     HealthConnectDataType.BloodGlucose,
-     HealthConnectDataType.BloodPressure,
-     HealthConnectDataType.BodyFat,
-     HealthConnectDataType.BodyTemperature,
-     HealthConnectDataType.BoneMass,
-     HealthConnectDataType.CervicalMucus,
-     HealthConnectDataType.CyclingPedalingCadence,
-     HealthConnectDataType.Distance,
-     HealthConnectDataType.ElevationGained,
-     HealthConnectDataType.ExerciseSession,
-     HealthConnectDataType.FloorsClimbed,
-     HealthConnectDataType.HeartRate,
-     HealthConnectDataType.Height,
-     HealthConnectDataType.Hydration,
-     HealthConnectDataType.LeanBodyMass,
-     HealthConnectDataType.MenstruationFlow,
-     HealthConnectDataType.Nutrition,
-     HealthConnectDataType.OvulationTest,
-     HealthConnectDataType.OxygenSaturation,
-     HealthConnectDataType.Power,
-     HealthConnectDataType.RespiratoryRate,
-     HealthConnectDataType.RestingHeartRate,
-     HealthConnectDataType.SexualActivity,
-     HealthConnectDataType.SleepSession,
-     HealthConnectDataType.SleepStage,
-     HealthConnectDataType.Speed,
-     HealthConnectDataType.StepsCadence,
-     HealthConnectDataType.Steps,
-     HealthConnectDataType.TotalCaloriesBurned,
-     HealthConnectDataType.Vo2Max,
-     HealthConnectDataType.Weight,
-     HealthConnectDataType.WheelchairPushes,
-   ];
+
+  List<HealthConnectDataType> types = [
+    HealthConnectDataType.ActiveCaloriesBurned,
+    HealthConnectDataType.BasalBodyTemperature,
+    HealthConnectDataType.BasalMetabolicRate,
+    HealthConnectDataType.BloodGlucose,
+    HealthConnectDataType.BloodPressure,
+    HealthConnectDataType.BodyFat,
+    HealthConnectDataType.BodyTemperature,
+    HealthConnectDataType.BoneMass,
+    HealthConnectDataType.CervicalMucus,
+    HealthConnectDataType.CyclingPedalingCadence,
+    HealthConnectDataType.Distance,
+    HealthConnectDataType.ElevationGained,
+    HealthConnectDataType.ExerciseSession,
+    HealthConnectDataType.FloorsClimbed,
+    HealthConnectDataType.HeartRate,
+    HealthConnectDataType.Height,
+    HealthConnectDataType.Hydration,
+    HealthConnectDataType.LeanBodyMass,
+    HealthConnectDataType.MenstruationFlow,
+    HealthConnectDataType.Nutrition,
+    HealthConnectDataType.OvulationTest,
+    HealthConnectDataType.OxygenSaturation,
+    HealthConnectDataType.Power,
+    HealthConnectDataType.RespiratoryRate,
+    HealthConnectDataType.RestingHeartRate,
+    HealthConnectDataType.SexualActivity,
+    HealthConnectDataType.SleepSession,
+    HealthConnectDataType.SleepStage,
+    HealthConnectDataType.Speed,
+    HealthConnectDataType.StepsCadence,
+    HealthConnectDataType.Steps,
+    HealthConnectDataType.TotalCaloriesBurned,
+    HealthConnectDataType.Vo2Max,
+    HealthConnectDataType.Weight,
+    HealthConnectDataType.WheelchairPushes,
+  ];
 
   Future<void> _requestHealthConnectPermissions(BuildContext context) async {
     try {
       final isSupported = await _isHealthConnectSupported();
       final isInstalled = await _isHealthConnectInstalled();
-
 
       if (!isSupported) {
         if (!context.mounted) return;
@@ -234,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         return;
       }
 
-      final granted = await HealthConnectFactory.requestPermissions(types );
+      final granted = await HealthConnectFactory.requestPermissions(types);
       if (!context.mounted) return;
 
       if (granted) {
@@ -271,6 +248,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       );
     }
   }
+
   Future<bool> _isHealthConnectSupported() async {
     try {
       return await HealthConnectFactory.isApiSupported();
@@ -326,11 +304,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Future<void> _initializeNotifications() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final InitializationSettings initializationSettings =
-    InitializationSettings(
+    final InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: DarwinInitializationSettings(),
     );
@@ -345,22 +321,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       if (data != null && mounted) {
         setState(() {
-          // تحديد التبويب المستهدف
           _tabController.index = data['tabIndex'] ?? 0;
 
-          // معالجة بيانات التحليل الصحي
           if (data.containsKey('analysis')) {
             _healthAnalysis = data['analysis'] ?? '';
           }
 
-          // معالجة بيانات الصحة النفسية (الجديدة)
           if (data.containsKey('mental_health_analysis')) {
             _mentalHealthAnalysisResult = data['mental_health_analysis'] ?? '';
           }
 
-          // معالجة طلب فتح تقييم الحالة المزاجية من الإشعار
-          if (data.containsKey('show_mood_assessment') &&
-              data['show_mood_assessment'] == true) {
+          if (data.containsKey('show_mood_assessment') && data['show_mood_assessment'] == true) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _showMoodAssessment(
                 fromNotification: true,
@@ -380,6 +351,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       }
     }
   }
+
   void _showMoodAssessment({
     bool fromNotification = false,
     double? sdnn,
@@ -398,17 +370,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-
-
-
   Future<void> _loadWeeklySpO2Data() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) return;
 
       final now = DateTime.now();
-
-      // حساب السبت الماضي بدقة
       final startOfWeek = now.subtract(Duration(days: (now.weekday + 1) % 7));
       final endOfWeek = now;
 
@@ -420,7 +387,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           .collection('VitalSigns')
           .where('timestamp', isGreaterThanOrEqualTo: startOfWeek)
           .where('timestamp', isLessThanOrEqualTo: endOfWeek)
-          .orderBy('timestamp', descending: true) // الأحدث أولاً
+          .orderBy('timestamp', descending: true)
           .get();
 
       debugPrint('📊 عدد السجلات المسترجعة: ${snapshot.docs.length}');
@@ -432,7 +399,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         final timestamp = (data['timestamp'] as Timestamp?)?.toDate();
         if (timestamp == null) continue;
 
-        // حساب يوم الأسبوع (0=السبت، 6=الجمعة)
         final dayOfWeek = (timestamp.weekday + 1) % 7;
         final spo2Value = (data['spo2'] as num?)?.toDouble();
 
@@ -442,7 +408,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         }
       }
 
-      // تعبئة القيم الأسبوعية (0 للايام بدون بيانات)
       final weeklySpO2Values = List.generate(7, (i) => dailyReadings[i] ?? 0.0);
 
       debugPrint('📈 القيم النهائية: ${weeklySpO2Values.asMap().entries.map((e) => '${_getDayName(e.key)}: ${e.value}%').join(', ')}');
@@ -450,7 +415,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       setState(() {
         _weeklySpO2Values = weeklySpO2Values;
       });
-
     } catch (e) {
       debugPrint('❌ خطأ: ${e.toString()}');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -462,12 +426,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
   }
 
-// دالة مساعدة للحصول على اسم اليوم
   String _getDayName(int dayIndex) {
     const days = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
     return days[dayIndex];
   }
-  // دالة لجلب بيانات معدل ضربات القلب اليومية
+
   Future<void> _loadHourlyHeartRateData() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -540,7 +503,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         final timestamp = (data['timestamp'] as Timestamp?)?.toDate();
         if (timestamp == null) continue;
 
-        // تحويل الوقت إلى قيمة عشرية (0.0 إلى 24.0)
         final hour = timestamp.hour;
         final minute = timestamp.minute;
         final timeOfDay = hour + minute / 60.0;
@@ -557,7 +519,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         }
       }
 
-      // ترتيب النقاط حسب الوقت
       sdnnSpots.sort((a, b) => a.x.compareTo(b.x));
       rmssdSpots.sort((a, b) => a.x.compareTo(b.x));
 
@@ -583,9 +544,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       if (user == null) return;
 
       final now = DateTime.now();
-      // حساب السبت الماضي (بداية الأسبوع الحالي)
       final startOfWeek = now.subtract(Duration(days: (now.weekday + 1) % 7));
-      // النهاية تكون اليوم الحالي
       final endOfWeek = now;
 
       final snapshot = await FirebaseFirestore.instance
@@ -604,10 +563,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         final timestamp = (data['timestamp'] as Timestamp?)?.toDate();
         if (timestamp == null) continue;
 
-        // حساب يوم الأسبوع (0 = السبت، 6 = الجمعة)
         final dayOfWeek = (timestamp.weekday + 1) % 7;
 
-        // الاحتفاظ بأحدث سجل لكل يوم
         final existingDoc = lastDocsPerDay[dayOfWeek];
         final existingTimestamp = existingDoc?.data()['timestamp'] as Timestamp?;
 
@@ -616,10 +573,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         }
       }
 
-      // إعداد مصفوفة لأيام الأسبوع (7 أيام × 4 مراحل نوم)
       final dailySleepStages = List.generate(7, (_) => [0.0, 0.0, 0.0, 0.0]);
 
-      // ملء البيانات من أحدث السجلات
       lastDocsPerDay.forEach((day, doc) {
         final data = doc.data();
         dailySleepStages[day][0] = (data['sleepDeepMinutes'] as num?)?.toDouble() ?? 0;
@@ -628,7 +583,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         dailySleepStages[day][3] = (data['sleepAwakeMinutes'] as num?)?.toDouble() ?? 0;
       });
 
-      // تحديث حالة التطبيق بالبيانات الجديدة
       setState(() {
         _deepSleepHistory = dailySleepStages.asMap().entries
             .map((e) => FlSpot(e.key.toDouble(), e.value[0]))
@@ -643,12 +597,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             .map((e) => FlSpot(e.key.toDouble(), e.value[3]))
             .toList();
       });
-
     } catch (e) {
       debugPrint('خطأ في جلب بيانات النوم: $e');
     }
   }
-
 
   Future<void> _loadWeeklyActivityData() async {
     try {
@@ -656,10 +608,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       if (user == null) return;
 
       final now = DateTime.now();
-
-      // حساب السبت الماضي (بداية الأسبوع الحالي)
       final startOfWeek = now.subtract(Duration(days: (now.weekday + 1) % 7));
-      // النهاية تكون اليوم الحالي
       final endOfWeek = now;
 
       final querySnapshot = await FirebaseFirestore.instance
@@ -683,7 +632,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
         if (timestamp == null) continue;
 
-        // حساب يوم الأسبوع (0 = السبت، 6 = الجمعة)
         final dayIndex = (timestamp.weekday + 1) % 7;
         debugPrint('Processing day $dayIndex with timestamp $timestamp');
 
@@ -697,11 +645,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         }
       }
 
-      // إعداد مصفوفات للبيانات (7 أيام)
       final dailySteps = List<double>.filled(7, 0);
       final dailyCalories = List<double>.filled(7, 0);
 
-      // ملء البيانات من أحدث السجلات
       lastDocsPerDay.forEach((day, doc) {
         final data = doc.data();
         debugPrint('Day $day data: ${data.toString()}');
@@ -720,22 +666,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             .map((e) => FlSpot(e.key.toDouble(), e.value))
             .toList();
       });
-
     } catch (e) {
       debugPrint('خطأ في جلب بيانات النشاط: $e');
-      // يمكن إضافة رسالة للمستخدم هنا
     }
   }
-
-
-
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
-
 
   Future<void> _loadThemePreference() async {
     final prefs = await SharedPreferences.getInstance();
@@ -755,8 +695,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     });
     _saveThemePreference(value);
   }
-
-
 
   void _showBloodPressureInputDialog() {
     setState(() {
@@ -802,7 +740,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       },
     )..then((_) => setState(() {}));
   }
-
 
   void _showBloodSugarInputDialog() {
     setState(() {
@@ -861,7 +798,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       await prefs.setString('diastolic', _manualDiastolic);
       await _sendBloodPressureToAndroid(_manualSystolic, _manualDiastolic);
 
-
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('تم حفظ بيانات ضغط الدم بنجاح')),
       );
@@ -879,7 +815,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       await prefs.setString('glucoseBefore', _manualGlucoseBefore);
       await prefs.setString('glucoseAfter', _manualGlucoseAfter);
       await _sendBloodSugarToAndroid(_manualGlucoseBefore, _manualGlucoseAfter);
-
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('تم حفظ بيانات السكر بنجاح')),
@@ -911,7 +846,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
   }
 
-
   Future<void> _loadHealthDataFromFirestore() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -922,7 +856,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       final db = FirebaseFirestore.instance;
       final userRef = db.collection('users').doc(user.uid);
 
-      // جلب أحدث سجل من كل مجموعة
       final latestDataFutures = {
         'body': userRef.collection('BodyComposition')
             .orderBy('timestamp', descending: true)
@@ -942,19 +875,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             .get(),
       };
 
-
-      // تنفيذ جميع الاستعلامات بشكل متوازي
       final latestResults = await Future.wait(latestDataFutures.values);
 
-      // معالجة أحدث البيانات
       final bodyData = latestResults[0].docs.isNotEmpty ? latestResults[0].docs.first.data() : {};
       final activityData = latestResults[1].docs.isNotEmpty ? latestResults[1].docs.first.data() : {};
       final sleepData = latestResults[2].docs.isNotEmpty ? latestResults[2].docs.first.data() : {};
       final vitalsData = latestResults[3].docs.isNotEmpty ? latestResults[3].docs.first.data() : {};
 
-      // تحديث حالة التطبيق
       setState(() {
-        // بنية الجسم
         if (bodyData.isNotEmpty) {
           height = bodyData['height']?.toString() ?? '';
           weight = bodyData['weight']?.toString() ?? '';
@@ -967,7 +895,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           lbm = bodyData['leanBodyMassKg']?.toString() ?? '';
         }
 
-        // النشاط اليومي
         if (activityData.isNotEmpty) {
           double bmrValue = double.tryParse(bmr) ?? 0;
           double activityCalories = (activityData['calories'] as num?)?.toDouble() ?? 0;
@@ -981,7 +908,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               .join('\n');
         }
 
-        // النوم - الجزء المعدل بالكامل
         if (sleepData.isNotEmpty) {
           totalSleepTime = sleepData['sleepTotalMinutes']?.toString() ?? '0';
           deepSleep = sleepData['sleepDeepMinutes']?.toString() ?? '0';
@@ -989,10 +915,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           lightSleep = sleepData['sleepLightMinutes']?.toString() ?? '0';
           wakeUpTime = sleepData['sleepAwakeMinutes']?.toString() ?? '0';
           bloodOxygenLevelAvg = sleepData['spo2']?.toString() ?? '0';
-
         }
 
-        // المؤشرات الحيوية
         if (vitalsData.isNotEmpty) {
           heartRateMax = vitalsData['heartRateMax']?.toString() ?? '';
           heartRateMin = vitalsData['heartRateMin']?.toString() ?? '';
@@ -1005,8 +929,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           bloodGlucoseBeforeMeal = vitalsData['bloodGlucoseBeforeMeal']?.toString() ?? '';
           bloodGlucoseAfterMeal = vitalsData['bloodGlucoseAfterMeal']?.toString() ?? '';
         }
-
-
       });
     } catch (e) {
       debugPrint('فشل تحميل البيانات: $e');
@@ -1048,7 +970,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         child: Scaffold(
           backgroundColor: _isDarkMode ? Colors.grey[900] : Colors.white,
           appBar: AppBar(
-            title:  Text(
+            title: Text(
               "صحتـــــــك",
               style: TextStyle(
                 color: _isDarkMode ? Colors.white : Colors.grey[600],
@@ -1075,8 +997,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 child: TabBar(
                   controller: _tabController,
                   tabs: const [
-                    Tab(icon: Icon(Icons.monitor_heart)), // البيانات الحيوية
-                    Tab(icon: Icon(Icons.analytics)), // تحليل صحي
+                    Tab(icon: Icon(Icons.monitor_heart)),
+                    Tab(icon: Icon(Icons.analytics)),
                     Tab(icon: Icon(Icons.psychology)),
                     Tab(icon: Icon(Icons.settings)),
                   ],
@@ -1093,7 +1015,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               _buildSettingsTab(context),
             ],
           ),
-
         ),
       ),
     );
@@ -1160,108 +1081,103 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
 
     return Scaffold(
-        body: SingleChildScrollView(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          _buildGroupTitle("التقارير الصحية"),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: _isDarkMode ? Colors.grey[800] : const Color(0xFFF5F6FA),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              children: [
-                _healthAnalysis.isEmpty
-                    ? const Text("انقر لمعرفة مستواك الصحي")
-                    : buildContentWithYoutubeSupport(_healthAnalysis),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _isAnalyzing ? null : _analyzeHealthData,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6A74CF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+        child: Column(
+          children: [
+            _buildGroupTitle("التقارير الصحية"),
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: _isDarkMode ? Colors.grey[800] : const Color(0xFFF5F6FA),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  _healthAnalysis.isEmpty
+                      ? const Text("انقر لمعرفة مستواك الصحي")
+                      : buildContentWithYoutubeSupport(_healthAnalysis),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _isAnalyzing ? null : _analyzeHealthData,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6A74CF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
+                    child: _isAnalyzing
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text("تحليل البيانات", style: TextStyle(color: Colors.white)),
                   ),
-                  child: _isAnalyzing
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("تحليل البيانات", style: TextStyle(color: Colors.white)),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          _buildGroupTitle("التقارير اليومية"),
-          StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(FirebaseAuth.instance.currentUser?.uid) // 1. قد يكون null
-                .collection('HealthAnalysis')
-                .where(FieldPath.documentId, isGreaterThanOrEqualTo: DateFormat('yyyy-MM-dd').format(DateTime.now()))
-                .where(FieldPath.documentId, isLessThan: DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 1))))
-                .orderBy(FieldPath.documentId, descending: true)
-                .snapshots(),
-            builder: (context, snapshot) {
-              // 2. التحقق من حالة الاتصال أولاً
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
+            _buildGroupTitle("التقارير اليومية"),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser?.uid)
+                  .collection('HealthAnalysis')
+                  .where(FieldPath.documentId, isGreaterThanOrEqualTo: DateFormat('yyyy-MM-dd').format(DateTime.now()))
+                  .where(FieldPath.documentId, isLessThan: DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 1))))
+                  .orderBy(FieldPath.documentId, descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              // 3. التحقق من الأخطاء
-              if (snapshot.hasError) {
-                return Text("حدث خطأ: ${snapshot.error.toString()}");
-              }
+                if (snapshot.hasError) {
+                  return Text("حدث خطأ: ${snapshot.error.toString()}");
+                }
 
-              // 4. التحقق من وجود المستخدم
-              if (FirebaseAuth.instance.currentUser == null) {
-                return const Text("يجب تسجيل الدخول لعرض التقارير");
-              }
+                if (FirebaseAuth.instance.currentUser == null) {
+                  return const Text("يجب تسجيل الدخول لعرض التقارير");
+                }
 
-              // 5. التحقق من وجود البيانات بشكل آمن
-              final docs = snapshot.data?.docs ?? []; // تجنب استخدام !
+                final docs = snapshot.data?.docs ?? [];
 
-              if (docs.isEmpty) {
-                return const Text("لا توجد تقارير لهذا اليوم");
-              }
+                if (docs.isEmpty) {
+                  return const Text("لا توجد تقارير لهذا اليوم");
+                }
 
-              return Column(
-                children: docs.map((doc) {
-                  // 6. التحقق من بيانات المستند
-                  final data = doc.data() as Map<String, dynamic>? ?? {}; // قيمة افتراضية فارغة
+                return Column(
+                  children: docs.map((doc) {
+                    final data = doc.data() as Map<String, dynamic>? ?? {};
 
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: _isDarkMode ? Colors.grey[700] : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        buildContentWithYoutubeSupport(
-                          data['analysis'] ?? data['recommendations'] ?? 'لا يوجد محتوى',
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          doc.id,
-                          style: TextStyle(
-                            color: _isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                            fontSize: 12,
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: _isDarkMode ? Colors.grey[700] : Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildContentWithYoutubeSupport(
+                            data['analysis'] ?? data['recommendations'] ?? 'لا يوجد محتوى',
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              );
-            },
-          ),
-        ],
+                          const SizedBox(height: 10),
+                          Text(
+                            doc.id,
+                            style: TextStyle(
+                              color: _isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-    ),
     );
   }
 
@@ -1329,9 +1245,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       floatingActionButton: GestureDetector(
         onTap: () {
           _showMentalHealthQuestions();
-
         },
-
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           decoration: BoxDecoration(
@@ -1345,7 +1259,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 8,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -1356,111 +1270,103 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          _buildGroupTitle("تقارير الصحة النفسية"),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: _isDarkMode ? Colors.grey[800] : const Color(0xFFF5F6FA),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              children: [
-                _mentalHealthAnalysisResult.isEmpty
-                    ? const Text("انقر لمعرفة مستوى صحتك النفسية")
-                    : buildContentWithYoutubeSupport(_mentalHealthAnalysisResult),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _isAnalyzingMentalHealth ? null : _analyzeMentalHealthData,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6A74CF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+        child: Column(
+          children: [
+            _buildGroupTitle("تقارير الصحة النفسية"),
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: _isDarkMode ? Colors.grey[800] : const Color(0xFFF5F6FA),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  _mentalHealthAnalysisResult.isEmpty
+                      ? const Text("انقر لمعرفة مستوى صحتك النفسية")
+                      : buildContentWithYoutubeSupport(_mentalHealthAnalysisResult),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _isAnalyzingMentalHealth ? null : _analyzeMentalHealthData,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6A74CF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
+                    child: _isAnalyzingMentalHealth
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text("تحليل البيانات", style: TextStyle(color: Colors.white)),
                   ),
-                  child: _isAnalyzingMentalHealth
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("تحليل البيانات", style: TextStyle(color: Colors.white)),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          _buildGroupTitle("التقارير اليومية"),
-          StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(FirebaseAuth.instance.currentUser?.uid) // 1. قد يكون null
-                .collection('MentalHealthReports')
-                .where(FieldPath.documentId, isGreaterThanOrEqualTo: DateFormat('yyyy-MM-dd').format(DateTime.now()))
-                .where(FieldPath.documentId, isLessThan: DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 1))))
-                .orderBy(FieldPath.documentId, descending: true)
-                .snapshots(),
-            builder: (context, snapshot) {
-              // 2. التحقق من حالة الاتصال أولاً
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
+            _buildGroupTitle("التقارير اليومية"),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser?.uid)
+                  .collection('MentalHealthReports')
+                  .where(FieldPath.documentId, isGreaterThanOrEqualTo: DateFormat('yyyy-MM-dd').format(DateTime.now()))
+                  .where(FieldPath.documentId, isLessThan: DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 1))))
+                  .orderBy(FieldPath.documentId, descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              // 3. التحقق من الأخطاء
-              if (snapshot.hasError) {
-                return Text("حدث خطأ: ${snapshot.error.toString()}");
-              }
+                if (snapshot.hasError) {
+                  return Text("حدث خطأ: ${snapshot.error.toString()}");
+                }
 
-              // 4. التحقق من وجود المستخدم
-              if (FirebaseAuth.instance.currentUser == null) {
-                return const Text("يجب تسجيل الدخول لعرض التقارير");
-              }
+                if (FirebaseAuth.instance.currentUser == null) {
+                  return const Text("يجب تسجيل الدخول لعرض التقارير");
+                }
 
-              // 5. التحقق من وجود البيانات بشكل آمن
-              final docs = snapshot.data?.docs ?? []; // تجنب استخدام !
+                final docs = snapshot.data?.docs ?? [];
 
-              if (docs.isEmpty) {
-                return const Text("لا توجد تقارير لهذا اليوم");
-              }
+                if (docs.isEmpty) {
+                  return const Text("لا توجد تقارير لهذا اليوم");
+                }
 
-              return Column(
-                children: docs.map((doc) {
-                  // 6. التحقق من بيانات المستند
-                  final data = doc.data() as Map<String, dynamic>? ?? {}; // قيمة افتراضية فارغة
+                return Column(
+                  children: docs.map((doc) {
+                    final data = doc.data() as Map<String, dynamic>? ?? {};
 
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: _isDarkMode ? Colors.grey[700] : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        buildContentWithYoutubeSupport(data['analysis'] ?? 'لا يوجد محتوى'), // 7. قيمة افتراضية
-                        const SizedBox(height: 10),
-                        Text(
-                          doc.id,
-                          style: TextStyle(
-                            color: _isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                            fontSize: 12,
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: _isDarkMode ? Colors.grey[700] : Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildContentWithYoutubeSupport(data['analysis'] ?? 'لا يوجد محتوى'),
+                          const SizedBox(height: 10),
+                          Text(
+                            doc.id,
+                            style: TextStyle(
+                              color: _isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              );
-            },
-          ),
-        ],
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-    ),
     );
   }
-
-
 
   Future<void> _analyzeHealthData() async {
     setState(() => _isAnalyzing = true);
@@ -1474,7 +1380,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       final db = FirebaseFirestore.instance;
       final userRef = db.collection('users').doc(user.uid);
 
-      // جلب أحدث سجل من كل مجموعة مع تحويل صريح للنوع
       final bodySnapshot = await userRef.collection('BodyComposition')
           .orderBy('timestamp', descending: true)
           .limit(1)
@@ -1495,7 +1400,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           .limit(1)
           .get();
 
-      // تحويل النتائج إلى Map<String, dynamic> بشكل صريح
       final bodyData = bodySnapshot.docs.isNotEmpty
           ? Map<String, dynamic>.from(bodySnapshot.docs.first.data())
           : <String, dynamic>{};
@@ -1516,7 +1420,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         throw Exception('لا توجد بيانات صحية مخزنة');
       }
 
-      // بناء رسالة التحليل
       final prompt = '''
 أنا مساعد صحي ذكي ومتخصص.  
 أرجو منك تحليل البيانات الصحية التالية بشكل دقيق:
@@ -1574,7 +1477,6 @@ ${_formatExerciseData(activityData)}
       final analysisWithVideos = _combineAnalysisWithVideos(analysis, healthVideos['videos']);
       await _saveAnalysisToFirestore(user.uid, analysis);
       setState(() => _healthAnalysis = analysisWithVideos);
-
     } catch (e) {
       setState(() {
         _healthAnalysis = 'حدث خطأ أثناء التحليل: ${e is SocketException ? 'فشل الاتصال بالخادم' : e.toString()}';
@@ -1584,12 +1486,10 @@ ${_formatExerciseData(activityData)}
     }
   }
 
-// دالة مساعدة لاستخراج القيم بشكل آمن
   String _safeGetString(Map<String, dynamic> data, String key, [String defaultValue = 'غير متوفر']) {
     return data.containsKey(key) ? data[key]?.toString() ?? defaultValue : defaultValue;
   }
 
-// دالة خاصة لمعالجة نسبة الدهون
   String _safeGetBodyFatPercentage(Map<String, dynamic> data) {
     if (!data.containsKey('bodyFat')) return 'غير متوفر';
 
@@ -1601,7 +1501,6 @@ ${_formatExerciseData(activityData)}
     }
   }
 
-// دالة مساعدة لصياغة بيانات التمارين
   String _formatExerciseData(Map<String, dynamic> activityData) {
     try {
       final exercises = activityData.entries
@@ -1632,19 +1531,16 @@ ${_formatExerciseData(activityData)}
       final startOfDay = DateTime(now.year, now.month, now.day);
       final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
 
-      // جلب أحدث سجل للنوم
       final sleepSnapshot = await userRef.collection('SleepData')
           .orderBy('timestamp', descending: true)
           .limit(1)
           .get();
 
-      // جلب أحدث سجل للنشاط اليومي
       final activitySnapshot = await userRef.collection('DailyActivity')
           .orderBy('timestamp', descending: true)
           .limit(1)
           .get();
 
-      // جلب جميع قراءات HRV (SDNN, RMSSD) لليوم الحالي
       final hrvSnapshot = await userRef.collection('VitalSigns')
           .where('timestamp', isGreaterThanOrEqualTo: startOfDay)
           .where('timestamp', isLessThanOrEqualTo: endOfDay)
@@ -1653,7 +1549,6 @@ ${_formatExerciseData(activityData)}
           .orderBy('timestamp')
           .get();
 
-      // تحويل النتائج إلى Map<String, dynamic>
       final sleepData = sleepSnapshot.docs.isNotEmpty
           ? Map<String, dynamic>.from(sleepSnapshot.docs.first.data())
           : <String, dynamic>{};
@@ -1662,7 +1557,6 @@ ${_formatExerciseData(activityData)}
           ? Map<String, dynamic>.from(activitySnapshot.docs.first.data())
           : <String, dynamic>{};
 
-      // حساب متوسطات HRV لليوم
       double sdnnSum = 0;
       double rmssdSum = 0;
       int hrvCount = 0;
@@ -1686,7 +1580,6 @@ ${_formatExerciseData(activityData)}
         throw Exception('لا توجد بيانات كافية للتحليل النفسي');
       }
 
-      // بناء رسالة التحليل النفسي
       final prompt = '''
 أنا مساعد الصحة النفسية الذكية. أرجو تحليل الحالة النفسية بناءً على البيانات التالية:
 
@@ -1730,7 +1623,6 @@ ${_formatExerciseData(activityData)}
         _mentalHealthAnalysisResult = analysisWithVideos;
         _isAnalyzingMentalHealth = true;
       });
-
     } catch (e) {
       setState(() {
         _mentalHealthAnalysisResult = 'حدث خطأ أثناء التحليل النفسي: ${e.toString()}';
@@ -1739,6 +1631,7 @@ ${_formatExerciseData(activityData)}
       setState(() => _isAnalyzingMentalHealth = false);
     }
   }
+
   String _combineAnalysisWithVideos(String analysis, List<Map<String, String>> videos) {
     if (videos.isEmpty) return analysis;
 
@@ -1749,7 +1642,6 @@ ${_formatExerciseData(activityData)}
     return '$analysis\n\nفيديوهات مقترحة:\n$videosText';
   }
 
-// دالة مساعدة لحساب النسب المئوية لمراحل النوم
   String _calculatePercentage(Map<String, dynamic> data, String partKey, String totalKey) {
     try {
       final part = (data[partKey] as num?)?.toDouble() ?? 0;
@@ -1760,7 +1652,6 @@ ${_formatExerciseData(activityData)}
     }
   }
 
-// دالة لتقييم مستوى النشاط
   String _calculateActivityLevel(Map<String, dynamic> activityData) {
     final steps = (activityData['steps'] as num?)?.toInt() ?? 0;
 
@@ -1771,12 +1662,10 @@ ${_formatExerciseData(activityData)}
     return 'قليل جداً';
   }
 
-  /// دالة مساعدة لحفظ التحليل في Firestore
   Future<void> _saveMentalHealthAnalysisToFirestore(String userId, String analysis) async {
     final now = DateTime.now();
     final documentId = DateFormat('yyyy-MM-dd_HH-mm-ss').format(now);
 
-    // استخراج روابط YouTube من التحليل
     final youtubeLinks = analysis.split('\n')
         .where((line) => line.startsWith('🔗'))
         .map((line) => line.substring(2).trim())
@@ -1795,7 +1684,8 @@ ${_formatExerciseData(activityData)}
   }
 
   Future<String> _callDeepSeekAPI(String prompt) async {
-    const apiUrl = '';
+    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
+    const apiKey = String.fromEnvironment('OPENROUTER_API_KEY');
 
     final response = await http.post(
       Uri.parse(apiUrl),
@@ -1824,20 +1714,23 @@ ${_formatExerciseData(activityData)}
 
     String answer = responseData['choices'][0]['message']['content'] ?? 'لا توجد إجابة متوفرة';
 
-    // تنظيف الرموز غير المهمة مثل * و #
     answer = answer.replaceAll(RegExp(r'[*#]'), '');
-
-    // فصل الجمل كل جملة في سطر جديد
     answer = answer.replaceAllMapped(RegExp(r'([!؟])'), (match) => '${match.group(0)}\n');
-
-    // إزالة المسافات الزائدة بداية كل سطر
     answer = answer.split('\n').map((line) => line.trim()).join('\n');
 
     return answer;
   }
-  Future<Map<String, dynamic>> _searchYouTubeVideos(String query, {String? pageToken}) async {
-    final url = '';
 
+  Future<Map<String, dynamic>> _searchYouTubeVideos(String query, {String? pageToken}) async {
+    const apiKey = String.fromEnvironment('YOUTUBE_API_KEY');
+    final url = 'https://www.googleapis.com/youtube/v3/search?'
+        'part=snippet'
+        '&maxResults=3'
+        '&q=$query'
+        '&type=video'
+        '&key=$apiKey'
+        '&order=relevance'
+        '${pageToken != null ? '&pageToken=$pageToken' : ''}';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -1874,12 +1767,10 @@ ${_formatExerciseData(activityData)}
     }
   }
 
-// دالة مساعدة لحفظ التحليل في Firestore
   Future<void> _saveAnalysisToFirestore(String userId, String analysis) async {
     final now = DateTime.now();
     final documentId = DateFormat('yyyy-MM-dd_HH-mm-ss').format(now);
 
-    // استخراج روابط YouTube من التحليل
     final youtubeLinks = analysis.split('\n')
         .where((line) => line.startsWith('🔗'))
         .map((line) => line.substring(2).trim())
@@ -1897,11 +1788,7 @@ ${_formatExerciseData(activityData)}
     });
   }
 
-
-
-
   Widget _buildVitalDataTab() {
-
     return Scaffold(
       floatingActionButton: GestureDetector(
         onTap: _isSyncing
@@ -1940,7 +1827,7 @@ ${_formatExerciseData(activityData)}
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 8,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -1962,79 +1849,72 @@ ${_formatExerciseData(activityData)}
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SingleChildScrollView(
-    padding: const EdgeInsets.all(20.0),
-    child: Column(
-    children: [
-          // بنية الجسم
-          _buildGroupTitle("بنية الجسم"),
-          _buildBodyCompositionChartSection(),
-          _buildHealthCard("الطول", height, "m", Icons.height),
-          _buildHealthCard("الوزن", weight, "kg", Icons.line_weight),
-          _buildHealthCard("الكتلة العضلية", muscleMass, "kg", Icons.fitness_center),
-          _buildHealthCard("نسبة الدهون", bodyFatPercentage, "%", Icons.pie_chart),
-          _buildHealthCard("كتلة الدهون", bodyFatKg, "kg", Icons.monitor_weight),
-          _buildHealthCard("كتلة المياه", bodyWater, "kg", Icons.water_drop),
-          _buildHealthCard("مؤشر كتلة الجسم(BMI)", bmi, "", Icons.calculate),
-          _buildHealthCard("(BMR)معدل الأيض الأساسي", bmr, "kcal/day", Icons.local_fire_department),
-          _buildHealthCard("الكتلة العضلية(LBM)", lbm, "kg", Icons.fitness_center),
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            _buildGroupTitle("بنية الجسم"),
+            _buildBodyCompositionChartSection(),
+            _buildHealthCard("الطول", height, "m", Icons.height),
+            _buildHealthCard("الوزن", weight, "kg", Icons.line_weight),
+            _buildHealthCard("الكتلة العضلية", muscleMass, "kg", Icons.fitness_center),
+            _buildHealthCard("نسبة الدهون", bodyFatPercentage, "%", Icons.pie_chart),
+            _buildHealthCard("كتلة الدهون", bodyFatKg, "kg", Icons.monitor_weight),
+            _buildHealthCard("كتلة المياه", bodyWater, "kg", Icons.water_drop),
+            _buildHealthCard("مؤشر كتلة الجسم(BMI)", bmi, "", Icons.calculate),
+            _buildHealthCard("(BMR)معدل الأيض الأساسي", bmr, "kcal/day", Icons.local_fire_department),
+            _buildHealthCard("الكتلة العضلية(LBM)", lbm, "kg", Icons.fitness_center),
 
+            _buildGroupTitle("النشاط اليومي"),
+            _buildDailyActivityChartSection(),
+            _instatenousData(),
+            _buildHealthCard("السعرات المحروقة", totalCaloriesBurned, "cal", Icons.local_fire_department),
+            _buildHealthCard("الخطوات", steps, "steps", Icons.directions_walk),
+            _buildHealthCard("المسافة المقطوعة", distance, "m", Icons.directions_run),
+            _buildHealthCard("التمارين", exercise, "", Icons.fitness_center),
 
-          // النشاط اليومي
-          _buildGroupTitle("النشاط اليومي"),
-          _buildDailyActivityChartSection(),
-          _instatenousData(),
-          _buildHealthCard("السعرات المحروقة", totalCaloriesBurned, "cal", Icons.local_fire_department),
-          _buildHealthCard("الخطوات", steps, "steps", Icons.directions_walk),
-          _buildHealthCard("المسافة المقطوعة", distance, "m", Icons.directions_run),
-          _buildHealthCard("التمارين", exercise, "", Icons.fitness_center),
+            _buildGroupTitle("النوم"),
+            _buildSleepChartSection(),
+            _instatenousData(),
+            _buildHealthCard("وقت النوم الكلي", totalSleepTime, "min", Icons.bedtime),
+            _buildHealthCard("وقت الاستيقاظ", wakeUpTime, "min", Icons.alarm_add_outlined),
+            _buildHealthCard("نوم حركة العين السريعة", remSleep, "min", Icons.visibility),
+            _buildHealthCard("النوم الخفيف", lightSleep, "min", Icons.bedtime),
+            _buildHealthCard("النوم العميق", deepSleep, "min", Icons.hotel),
 
-          // النوم
-          _buildGroupTitle("النوم"),
-          _buildSleepChartSection(),
-          _instatenousData(),
-          _buildHealthCard("وقت النوم الكلي", totalSleepTime, "min", Icons.bedtime),
-          _buildHealthCard("وقت الاستيقاظ", wakeUpTime, "min", Icons.alarm_add_outlined),
-          _buildHealthCard("نوم حركة العين السريعة", remSleep, "min", Icons.visibility),
-          _buildHealthCard("النوم الخفيف", lightSleep, "min", Icons.bedtime),
-          _buildHealthCard("النوم العميق", deepSleep, "min", Icons.hotel),
+            _buildGroupTitle("المؤشرات الحيوية"),
+            _buildHrChartSection(),
+            _instatenousData(),
+            _buildHealthCard("معدل ضربات القلب (Avg)", heartRateAvg, "bpm", Icons.favorite),
+            _buildHealthCard("معدل ضربات القلب (Max)", heartRateMax, "bpm", Icons.favorite),
+            _buildHealthCard("معدل ضربات القلب (Min)", heartRateMin, "bpm", Icons.favorite),
+            _buildHrvChartSection(),
+            _instatenousData(),
+            _buildHealthCard("تغير ضربات القلب (SDNN)", hrvSDNN, "ms", Icons.monitor_heart),
+            _buildHealthCard("تغير ضربات القلب (RMSSD)", hrvRMSSD, "ms", Icons.monitor_heart),
+            _buildSpo2ChartSection(),
+            _instatenousData(),
+            _buildHealthCard("نسبة الأكسجين", bloodOxygenLevelAvg, "%", Icons.air),
+            _buildEditableHealthCard(
+              "ضغط الدم (الانقباضي/الانبساطي)",
+              "${systolicBloodPressure.isEmpty ? '--' : systolicBloodPressure}/${diastolicBloodPressure.isEmpty ? '--' : diastolicBloodPressure}",
+              "mmHg",
+              Icons.speed,
+              _showBloodPressureInputDialog,
+            ),
 
-
-          // المؤشرات الحيوية
-          _buildGroupTitle("المؤشرات الحيوية"),
-          _buildHrChartSection(),
-          _instatenousData(),
-          _buildHealthCard("معدل ضربات القلب (Avg)", heartRateAvg, "bpm", Icons.favorite),
-          _buildHealthCard("معدل ضربات القلب (Max)", heartRateMax, "bpm", Icons.favorite),
-          _buildHealthCard("معدل ضربات القلب (Min)", heartRateMin, "bpm", Icons.favorite),
-          _buildHrvChartSection(),
-          _instatenousData(),
-          _buildHealthCard("تغير ضربات القلب (SDNN)", hrvSDNN, "ms", Icons.monitor_heart),
-          _buildHealthCard("تغير ضربات القلب (RMSSD)", hrvRMSSD, "ms", Icons.monitor_heart),
-          _buildSpo2ChartSection(),
-          _instatenousData(),
-          _buildHealthCard("نسبة الأكسجين", bloodOxygenLevelAvg, "%", Icons.air),
-          _buildEditableHealthCard(
-            "ضغط الدم (الانقباضي/الانبساطي)",
-            "${systolicBloodPressure.isEmpty ? '--' : systolicBloodPressure}/${diastolicBloodPressure.isEmpty ? '--' : diastolicBloodPressure}",
-            "mmHg",
-            Icons.speed,
-            _showBloodPressureInputDialog,
-          ),
-
-          _buildEditableHealthCard(
-            "سكر الدم (قبل/بعد الأكل)",
-            "${bloodGlucoseBeforeMeal.isEmpty ? '--' : bloodGlucoseBeforeMeal}/${bloodGlucoseAfterMeal.isEmpty ? '--' : bloodGlucoseAfterMeal}",
-            "mg/dl",
-            Icons.opacity,
-            _showBloodSugarInputDialog,
-          ),
-        ],
+            _buildEditableHealthCard(
+              "سكر الدم (قبل/بعد الأكل)",
+              "${bloodGlucoseBeforeMeal.isEmpty ? '--' : bloodGlucoseBeforeMeal}/${bloodGlucoseAfterMeal.isEmpty ? '--' : bloodGlucoseAfterMeal}",
+              "mg/dl",
+              Icons.opacity,
+              _showBloodSugarInputDialog,
+            ),
+          ],
+        ),
       ),
-    ),
     );
   }
 
-  // في واجهة المستخدم
   _instatenousData() {
     return Column(
       children: [
@@ -2045,11 +1925,9 @@ ${_formatExerciseData(activityData)}
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: _isDarkMode ? Colors.white : Colors.grey[800],
-
           ),
         ),
         const SizedBox(height: 8),
-
       ],
     );
   }
@@ -2077,6 +1955,7 @@ ${_formatExerciseData(activityData)}
       ],
     );
   }
+
   _buildDailyActivityChartSection() {
     return Column(
       children: [
@@ -2098,6 +1977,7 @@ ${_formatExerciseData(activityData)}
       ],
     );
   }
+
   _buildHrChartSection() {
     return Column(
       children: [
@@ -2118,6 +1998,7 @@ ${_formatExerciseData(activityData)}
       ],
     );
   }
+
   _buildHrvChartSection() {
     return Column(
       children: [
@@ -2139,6 +2020,7 @@ ${_formatExerciseData(activityData)}
       ],
     );
   }
+
   _buildSpo2ChartSection() {
     return Column(
       children: [
@@ -2193,7 +2075,7 @@ ${_formatExerciseData(activityData)}
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(158, 158, 158, 0.1),
+            color: const Color.fromRGBO(158, 158, 158, 0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 3),
@@ -2229,7 +2111,7 @@ ${_formatExerciseData(activityData)}
                 const SizedBox(height: 5),
                 Text(
                   value.isEmpty ? "غير متوفر" : "$value $unit",
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: _isDarkMode ? Colors.grey[400] : Colors.grey[600],
@@ -2242,6 +2124,7 @@ ${_formatExerciseData(activityData)}
       ),
     );
   }
+
   Widget _buildEditableHealthCard(String title, String value, String unit, IconData icon, VoidCallback onEdit) {
     return GestureDetector(
       onTap: onEdit,
@@ -2253,7 +2136,7 @@ ${_formatExerciseData(activityData)}
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(158, 158, 158, 0.1),
+              color: const Color.fromRGBO(158, 158, 158, 0.1),
               spreadRadius: 1,
               blurRadius: 5,
               offset: const Offset(0, 3),
@@ -2299,7 +2182,7 @@ ${_formatExerciseData(activityData)}
               ),
             ),
             IconButton(
-              icon: Icon(Icons.edit, color: Color(0xFF6A74CF)),
+              icon: const Icon(Icons.edit, color: Color(0xFF6A74CF)),
               onPressed: onEdit,
             ),
           ],
@@ -2318,20 +2201,19 @@ ${_formatExerciseData(activityData)}
               _buildProfileSection(),
               const SizedBox(height: 30),
               _buildSettingOption(
-                scaffoldContext, // استخدام scaffoldContext الآمن
+                scaffoldContext,
                 Icons.health_and_safety,
                 "Health Connect",
                 "Health Connect Get Permission",
                 _requestHealthConnectPermissions,
               ),
               _buildSettingOption(
-                scaffoldContext, // استخدام scaffoldContext الآمن
+                scaffoldContext,
                 Icons.settings,
                 "Health Connect",
                 "Health Connect Setting",
                 _openHealthConnectSettings,
               ),
-              // باقي العناصر بدون تغيير...
               Container(
                 margin: const EdgeInsets.only(bottom: 15),
                 padding: const EdgeInsets.all(15),
@@ -2395,6 +2277,7 @@ ${_formatExerciseData(activityData)}
       ),
     );
   }
+
   Widget _buildLogoutButton() {
     return SizedBox(
       width: double.infinity,
@@ -2435,13 +2318,11 @@ ${_formatExerciseData(activityData)}
   }
 
   Widget _buildGroupTitle(String title,
-      {
-        double fontSize = 20.0,
+      {double fontSize = 20.0,
         EdgeInsets margin = const EdgeInsets.only(top: 20, bottom: 15)}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-
         Container(
           margin: margin,
           height: 50,
@@ -2464,19 +2345,16 @@ ${_formatExerciseData(activityData)}
             ),
           ),
         ),
-
       ],
     );
   }
 
-
-
   Widget _buildSettingOption(
-      BuildContext context, // أضف هذا المعامل
+      BuildContext context,
       IconData icon,
       String title,
       String subtitle,
-      Future<void> Function(BuildContext)? onTap, // عدل التوقيع ليقبل context
+      Future<void> Function(BuildContext)? onTap,
       ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
@@ -2519,7 +2397,7 @@ ${_formatExerciseData(activityData)}
         onTap: onTap != null
             ? () async {
           try {
-            await onTap(context); // تمرير context هنا
+            await onTap(context);
           } catch (e) {
             debugPrint('حدث خطأ في onTap: $e');
             ScaffoldMessenger.of(context).showSnackBar(
@@ -2616,13 +2494,11 @@ ${_formatExerciseData(activityData)}
                 color: _isDarkMode ? Colors.grey[400] : Colors.grey[600],
               ),
             ),
-
           ],
         );
       },
     );
   }
-
 
   Widget _buildProfileImage() {
     return GestureDetector(
@@ -2692,7 +2568,7 @@ ${_formatExerciseData(activityData)}
       });
     }
   }
-  // دالة تسجيل الخروج
+
   Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -2706,7 +2582,6 @@ ${_formatExerciseData(activityData)}
       print("حدث خطأ أثناء تسجيل الخروج: $e");
     }
   }
-  ///////////////////////////////////DASS- 42 Test ////////////////////////////////////////////
 
   void _showMentalHealthQuestions() {
     final List<String> options = [
@@ -2715,7 +2590,7 @@ ${_formatExerciseData(activityData)}
       'ينطبق علي إلى حد كبير',
       'ينطبق علي تمامًا',
     ];
-    // قائمة أسئلة DASS-42 الكاملة
+
     final List<Map<String, dynamic>> dass42Questions = [
       {'question': 'وجدت صعوبة في تهدئة نفسي', 'options': options},
       {'question': 'أحسست بجفاف في فمي', 'options': options},
@@ -2761,9 +2636,6 @@ ${_formatExerciseData(activityData)}
       {'question': 'شعرت أنني بحاجة إلى أن أكون وحيدًا باستمرار', 'options': options},
     ];
 
-
-
-    // قائمة أسئلة الشخصية (TIPI)
     final List<Map<String, dynamic>> tipiQuestions = [
       {'question': 'أنا شخص متحمس، مفعم بالحيوية', 'options': ['غير موافق بشدة', 'غير موافق الى حد ما','غير موافق قليلا', 'محايد', 'موافق قليلا','موافق الى حد ما', 'موافق بشدة']},
       {'question': 'أنا شخص متشكك، يميل إلى انتقاد الآخرين', 'options': ['غير موافق بشدة', 'غير موافق الى حد ما','غير موافق قليلا', 'محايد', 'موافق قليلا','موافق الى حد ما', 'موافق بشدة']},
@@ -2777,7 +2649,6 @@ ${_formatExerciseData(activityData)}
       {'question': 'أنا شخص تقليدي، مبدع', 'options': ['غير موافق بشدة', 'غير موافق الى حد ما','غير موافق قليلا', 'محايد', 'موافق قليلا','موافق الى حد ما', 'موافق بشدة']},
     ];
 
-    // متغيرات ديموغرافية
     final Map<String, dynamic> demographics = {
       'education': ['أقل من ثانوي', 'ثانوي', 'جامعي', 'دراسات عليا'],
       'urban': ['ريفي', 'ضواحي', 'حضري'],
@@ -2811,7 +2682,6 @@ ${_formatExerciseData(activityData)}
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  // شريط التقدم
                   LinearProgressIndicator(
                     value: currentSlide / (dass42Questions.length + tipiQuestions.length + 1),
                     backgroundColor: _isDarkMode ? Colors.grey[800] : Colors.grey[200],
@@ -2827,10 +2697,8 @@ ${_formatExerciseData(activityData)}
                         setState(() => currentSlide = index);
                       },
                       children: [
-                        // الشريحة الأولى: مقدمة عن الاختبار
                         _buildIntroSlide(_isDarkMode),
 
-                        // شرائح أسئلة DASS-42
                         ...dass42Questions.asMap().entries.map((entry) {
                           final index = entry.key;
                           final question = entry.value;
@@ -2846,7 +2714,6 @@ ${_formatExerciseData(activityData)}
                           );
                         }).toList(),
 
-                        // شرائح أسئلة الشخصية
                         ...tipiQuestions.asMap().entries.map((entry) {
                           final index = entry.key;
                           final question = entry.value;
@@ -2862,7 +2729,6 @@ ${_formatExerciseData(activityData)}
                           );
                         }).toList(),
 
-                        // شريحة البيانات الديموغرافية
                         _buildDemographicsSlide(_isDarkMode, demographics, demoAnswers, (key, value) {
                           demoAnswers[key] = value;
                           setState(() {});
@@ -2871,7 +2737,6 @@ ${_formatExerciseData(activityData)}
                     ),
                   ),
 
-                  // أزرار التنقل
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -2894,7 +2759,6 @@ ${_formatExerciseData(activityData)}
                       if (currentSlide < dass42Questions.length + tipiQuestions.length + 1)
                         ElevatedButton(
                           onPressed: () {
-                            // التحقق من الإجابة الحالية
                             if (currentSlide > 0 && currentSlide <= dass42Questions.length) {
                               if (dassAnswers[currentSlide - 1] == null) {
                                 scaffoldMessengerKey.currentState?.showSnackBar(
@@ -2970,8 +2834,6 @@ ${_formatExerciseData(activityData)}
                                 await _showResultsDialog(_isDarkMode ,analysis);
                                 Navigator.of(context).pop();
                               }
-
-
                             } catch (e) {
                               debugPrint('حدث خطأ: $e');
                               if (navigatorContext.mounted) {
@@ -2982,7 +2844,6 @@ ${_formatExerciseData(activityData)}
                               }
                             }
                           },
-
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF6A74CF),
                           ),
@@ -3053,7 +2914,6 @@ ${_formatExerciseData(activityData)}
       ),
     );
   }
-
 
   Widget _buildQuestionSlide(
       bool isDarkMode,
@@ -3130,7 +2990,6 @@ ${_formatExerciseData(activityData)}
           ),
           const SizedBox(height: 30),
 
-          // مستوى التعليم
           _buildDemographicDropdown(
             isDarkMode,
             label: 'مستوى التعليم',
@@ -3139,7 +2998,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('education', value),
           ),
 
-          // منطقة السكن
           _buildDemographicDropdown(
             isDarkMode,
             label: 'منطقة السكن',
@@ -3148,7 +3006,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('urban', value),
           ),
 
-          // الجنس
           _buildDemographicDropdown(
             isDarkMode,
             label: 'الجنس',
@@ -3157,7 +3014,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('gender', value),
           ),
 
-          // الديانة
           _buildDemographicDropdown(
             isDarkMode,
             label: 'الديانة',
@@ -3166,7 +3022,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('religion', value),
           ),
 
-          // العرق
           _buildDemographicDropdown(
             isDarkMode,
             label: 'العرق',
@@ -3175,7 +3030,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('race', value),
           ),
 
-          // الحالة الاجتماعية
           _buildDemographicDropdown(
             isDarkMode,
             label: 'الحالة الاجتماعية',
@@ -3184,7 +3038,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('married', value),
           ),
 
-          // عدد أفراد الأسرة
           _buildDemographicDropdown(
             isDarkMode,
             label: 'عدد أفراد الأسرة',
@@ -3193,7 +3046,6 @@ ${_formatExerciseData(activityData)}
             onChanged: (value) => onChanged('familysize', value),
           ),
 
-          // الفئة العمرية
           _buildDemographicDropdown(
             isDarkMode,
             label: 'الفئة العمرية',
@@ -3235,7 +3087,7 @@ ${_formatExerciseData(activityData)}
               value: value,
               isExpanded: true,
               underline: const SizedBox(),
-              dropdownColor: _isDarkMode ? Colors.grey[800] : Colors.white, // لون الخلفية
+              dropdownColor: _isDarkMode ? Colors.grey[800] : Colors.white,
               items: items.map<DropdownMenuItem<dynamic>>((dynamic item) {
                 return DropdownMenuItem<dynamic>(
                   value: item,
@@ -3272,18 +3124,13 @@ ${_formatExerciseData(activityData)}
     if (user == null) throw Exception('يجب تسجيل الدخول أولاً');
 
     try {
-      // 1. التحقق من صحة البيانات
       if (dassAnswers.length != 42 || tipiAnswers.length != 10) {
         throw Exception('عدد الإجابات غير صحيح');
       }
 
-      // 2. إرسال البيانات إلى Hugging Face
       final hfResponse = await _sendToHuggingFace(dassAnswers, tipiAnswers, demoAnswers);
-
-      // 3. الحصول على التحليل من OpenRouter
       final analysis = await _getAnalysisFromOpenRouter(hfResponse);
 
-      // 4. حفظ النتائج في Firestore
       final now = DateTime.now();
       final documentId = DateFormat('yyyy-MM-dd_HH-mm-ss').format(now);
 
@@ -3298,14 +3145,14 @@ ${_formatExerciseData(activityData)}
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      return analysis; // ✅ ترجيع النتيجة هنا
+      return analysis;
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('فشل في إرسال النتائج: ${e.toString()}')),
         );
       }
-      return null; // ✅ في حال الخطأ، ترجع null
+      return null;
     }
   }
 
@@ -3315,26 +3162,23 @@ ${_formatExerciseData(activityData)}
       Map<String, dynamic> demoAnswers
       ) async {
     try {
-      // 1. تحويل البيانات الديموغرافية إلى أرقام
       final List<int> numericDemoData = _convertDemographicsToNumbers(demoAnswers);
-
-      // 2. دمج جميع البيانات في مصفوفة واحدة (DASS + TIPI + Demographics)
       final List<int> allInputs = [
-        ...dassAnswers,    // 42 إجابة (DASS)
-        ...tipiAnswers,    // 10 إجابة (TIPI)
-        ...numericDemoData // 8 بيانات ديموغرافية (مثال)
+        ...dassAnswers,
+        ...tipiAnswers,
+        ...numericDemoData
       ];
 
-      // 3. التأكد من أن الطول الإجمالي 60 (42 + 10 + 8)
       if (allInputs.length != 60) {
         throw Exception('يجب أن تحتوي البيانات على 60 عنصرًا (42 DASS + 10 TIPI + 8 ديموغرافيا)');
       }
 
-      // 4. إرسال البيانات إلى Hugging Face
+      const hfApiKey = String.fromEnvironment('HUGGINGFACE_API_KEY');
       final response = await http.post(
         Uri.parse(''),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $hfApiKey',
         },
         body: jsonEncode({
           'inputs': allInputs,
@@ -3350,8 +3194,8 @@ ${_formatExerciseData(activityData)}
       throw Exception('خطأ في الاتصال بـ Hugging Face API: $e');
     }
   }
+
   List<int> _convertDemographicsToNumbers(Map<String, dynamic> demoAnswers) {
-    // تعيين رموز رقمية لكل قيمة ديموغرافية
     const Map<String, Map<String, int>> demographicEncoding = {
       'education': {
         'أقل من ثانوي': 1,
@@ -3397,37 +3241,20 @@ ${_formatExerciseData(activityData)}
         'متزوج حالياً': 2,
         'متزوج سابقاً': 3,
       },
-      // familysize و age_group يتم استخدامها كما هي (رقمية)
     };
 
     return [
-      // التعليم (مثال: 2)
       demographicEncoding['education']![demoAnswers['education']] ?? 0,
-
-      // منطقة السكن (مثال: 3)
       demographicEncoding['urban']![demoAnswers['urban']] ?? 0,
-
-      // الجنس (مثال: 1)
       demographicEncoding['gender']![demoAnswers['gender']] ?? 0,
-
-      // الديانة (مثال: 10 للإسلام)
       demographicEncoding['religion']![demoAnswers['religion']] ?? 0,
-
-      // العرق (مثال: 2 للعرب)
       demographicEncoding['race']![demoAnswers['race']] ?? 0,
-
-      // الحالة الاجتماعية (مثال: 2 للمتزوج)
       demographicEncoding['married']![demoAnswers['married']] ?? 0,
-
-      // حجم الأسرة (يستخدم القيمة كما هي)
       int.tryParse(demoAnswers['familysize']?.toString() ?? '1') ?? 1,
-
-      // الفئة العمرية (يتم تحويل النص إلى رقم)
       _encodeAgeGroup(demoAnswers['age_group']),
     ];
   }
 
-// دالة مساعدة لتحويل الفئة العمرية إلى رقم
   int _encodeAgeGroup(String? ageGroup) {
     const Map<String, int> ageEncoding = {
       'أقل من 10': 1,
@@ -3437,12 +3264,13 @@ ${_formatExerciseData(activityData)}
       '36-48': 5,
       'أكثر من 49': 6,
     };
-    return ageEncoding[ageGroup] ?? 4; // القيمة الافتراضية: 22-35
+    return ageEncoding[ageGroup] ?? 4;
   }
+
   Future<String> _getAnalysisFromOpenRouter(Map<String, dynamic> hfResponse) async {
     try {
       final response = await http.post(
-        Uri.parse(''),
+        Uri.parse('https://openrouter.ai/api/v1/chat/completions'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -3489,8 +3317,8 @@ ${_formatExerciseData(activityData)}
       return 'حدث خطأ أثناء تحليل النتائج: $e';
     }
   }
-  Future<void> _showResultsDialog(bool isDarkMode, String analysis) async {
 
+  Future<void> _showResultsDialog(bool isDarkMode, String analysis) async {
     String cleanText = analysis
         .replaceAll('**', '')
         .replaceAll('***', '')
@@ -3527,7 +3355,6 @@ ${_formatExerciseData(activityData)}
             ),
             textAlign: TextAlign.right,
             textDirection: ui.TextDirection.rtl,
-
           ),
         ),
         actionsAlignment: MainAxisAlignment.start,
@@ -3549,9 +3376,8 @@ ${_formatExerciseData(activityData)}
       ),
     );
   }
-
-
 }
+
 class HeartRateStats {
   final double avg;
   final double min;
