@@ -1801,7 +1801,6 @@ ${_formatExerciseData(activityData)}
     final response = await http.post(
       Uri.parse(apiUrl),
       headers: {
-        'Authorization': 'Bearer $apiKey',
         'Content-Type': 'application/json',
         'HTTP-Referer': 'health',
         'X-Title': 'HealthAnalysisApp',
@@ -1838,7 +1837,7 @@ ${_formatExerciseData(activityData)}
     return answer;
   }
   Future<Map<String, dynamic>> _searchYouTubeVideos(String query, {String? pageToken}) async {
-    const apiKey = 'AIzaSyDsaUgFuvIZ8vjOzuPuCLJWiibVKoeBR7U';
+    const apiKey = '';
     final url = 'https://www.googleapis.com/youtube/v3/search?'
         'part=snippet'
         '&maxResults=3'
@@ -3343,7 +3342,6 @@ ${_formatExerciseData(activityData)}
       final response = await http.post(
         Uri.parse('https://zeyad995-dass-42-test.hf.space/predict'),
         headers: {
-          'Authorization': '',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
@@ -3454,7 +3452,6 @@ ${_formatExerciseData(activityData)}
       final response = await http.post(
         Uri.parse('https://openrouter.ai/api/v1/chat/completions'),
         headers: {
-          'Authorization': '',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
