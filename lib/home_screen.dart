@@ -1061,7 +1061,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               preferredSize: const Size.fromHeight(48.0),
               child: Theme(
                 data: Theme.of(context).copyWith(
-                  tabBarTheme: const TabBarTheme(
+                  tabBarTheme: const TabBarThemeData(
                     labelColor: Color(0xFF6A74CF),
                     unselectedLabelColor: Colors.grey,
                     indicator: UnderlineTabIndicator(
@@ -1796,7 +1796,7 @@ ${_formatExerciseData(activityData)}
 
   Future<String> _callDeepSeekAPI(String prompt) async {
     const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-    const apiKey = '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'; // مفتاح OpenRouter API
+    const apiKey = ''; // مفتاح OpenRouter API
 
     final response = await http.post(
       Uri.parse(apiUrl),
@@ -2392,7 +2392,7 @@ ${_formatExerciseData(activityData)}
                     Switch(
                       value: _isDarkMode,
                       onChanged: _toggleDarkMode,
-                      activeColor: const Color(0xFF6A74CF),
+                      activeThumbColor: const Color(0xFF6A74CF),
                     ),
                   ],
                 ),
@@ -3063,7 +3063,14 @@ ${_formatExerciseData(activityData)}
     );
   }
 
-  Widget _buildQuestionSlide(bool isDarkMode, String question, List<String> options, Function(int) onChanged, int? selectedValue) {
+
+  Widget _buildQuestionSlide(
+      bool isDarkMode,
+      String question,
+      List<String> options,
+      Function(int) onChanged,
+      int? selectedValue,
+      ) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3077,22 +3084,33 @@ ${_formatExerciseData(activityData)}
             ),
           ),
           const SizedBox(height: 30),
-          ...options.asMap().entries.map((entry) {
-            final index = entry.key;
-            final option = entry.value;
-            return RadioListTile<int>(
-              title: Text(
-                option,
-                style: TextStyle(
-                  color: isDarkMode ? Colors.white : Colors.black,
+
+          Column(
+            children: options.asMap().entries.map<Widget>((entry) {
+              final index = entry.key;
+              final option = entry.value;
+
+              return RadioListTile<int>(
+                value: index,
+                groupValue: selectedValue,
+                onChanged: (int? value) {
+                  if (value != null) {
+                    onChanged(value);
+                  }
+                },
+                title: Text(
+                  option,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isDarkMode ? Colors.white : Colors.black,
+                  ),
                 ),
-              ),
-              value: index,
-              groupValue: selectedValue,
-              onChanged: (value) => onChanged(value!),
-              activeColor: const Color(0xFF6A74CF),
-            );
-          }).toList(),
+                activeColor: const Color(0xFF6A74CF),
+                contentPadding: EdgeInsets.zero,
+                visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
@@ -3325,7 +3343,7 @@ ${_formatExerciseData(activityData)}
       final response = await http.post(
         Uri.parse('https://zeyad995-dass-42-test.hf.space/predict'),
         headers: {
-          'Authorization': 'Bearer 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',
+          'Authorization': '',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
@@ -3436,7 +3454,7 @@ ${_formatExerciseData(activityData)}
       final response = await http.post(
         Uri.parse('https://openrouter.ai/api/v1/chat/completions'),
         headers: {
-          'Authorization': 'Bearer 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',
+          'Authorization': '',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
