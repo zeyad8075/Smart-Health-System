@@ -271,7 +271,7 @@ $previousNote
         val request = Request.Builder()
             .url("https://openrouter.ai/api/v1/chat/completions")
             .post(requestBody.toRequestBody(mediaType))
-            .addHeader("Authorization", "Bearer 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")
+            .addHeader("Authorization", "")
             .addHeader("HTTP-Referer", "health")
             .addHeader("X-Title", "DailyMentalHealth")
             .build()

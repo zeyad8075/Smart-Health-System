@@ -138,7 +138,7 @@ class SleepAnalysisWorker(private val context: Context) : TaskWorker {
     }
 
     private suspend fun searchYouTubeVideos(query: String): List<Map<String, String>> {
-        val apiKey = "AIzaSyDsaUgFuvIZ8vjOzuPuCLJWiibVKoeBR7U"
+        val apiKey = ""
 
         // لتنوع النتائج: استخدم ترتيب مختلف عشوائيًا
         val orders = listOf("relevance", "date", "viewCount", "rating")
@@ -241,7 +241,7 @@ class SleepAnalysisWorker(private val context: Context) : TaskWorker {
         val request = Request.Builder()
             .url("https://openrouter.ai/api/v1/chat/completions")
             .post(requestBody.toRequestBody(mediaType))
-            .addHeader("Authorization", "Bearer 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")
+            .addHeader("Authorization", "")
             .addHeader("HTTP-Referer", "health")
             .addHeader("X-Title", "HealthAnalysisApp")
             .build()
