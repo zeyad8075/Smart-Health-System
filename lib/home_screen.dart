@@ -1795,8 +1795,7 @@ ${_formatExerciseData(activityData)}
   }
 
   Future<String> _callDeepSeekAPI(String prompt) async {
-    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-    const apiKey = ''; // مفتاح OpenRouter API
+    const apiUrl = '';
 
     final response = await http.post(
       Uri.parse(apiUrl),
@@ -1837,15 +1836,8 @@ ${_formatExerciseData(activityData)}
     return answer;
   }
   Future<Map<String, dynamic>> _searchYouTubeVideos(String query, {String? pageToken}) async {
-    const apiKey = '';
-    final url = 'https://www.googleapis.com/youtube/v3/search?'
-        'part=snippet'
-        '&maxResults=3'
-        '&q=$query'
-        '&type=video'
-        '&key=$apiKey'
-        '&order=relevance'
-        '${pageToken != null ? '&pageToken=$pageToken' : ''}';
+    final url = '';
+
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -3450,7 +3442,7 @@ ${_formatExerciseData(activityData)}
   Future<String> _getAnalysisFromOpenRouter(Map<String, dynamic> hfResponse) async {
     try {
       final response = await http.post(
-        Uri.parse('https://openrouter.ai/api/v1/chat/completions'),
+        Uri.parse(''),
         headers: {
           'Content-Type': 'application/json',
         },
