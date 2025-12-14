@@ -3340,7 +3340,7 @@ ${_formatExerciseData(activityData)}
 
       // 4. إرسال البيانات إلى Hugging Face
       final response = await http.post(
-        Uri.parse('https://zeyad995-dass-42-test.hf.space/predict'),
+        Uri.parse(''),
         headers: {
           'Content-Type': 'application/json',
         },
